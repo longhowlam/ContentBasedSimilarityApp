@@ -1,5 +1,5 @@
 ui <- dashboardPage(
-  dashboardHeader(title = "Videoalnd Movies Network", titleWidth = "330px"),
+  dashboardHeader(title = "Videoland Movies Network", titleWidth = "330px"),
   dashboardSidebar(width = 200,
                    
                    sidebarMenu(
