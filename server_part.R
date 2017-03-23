@@ -48,13 +48,13 @@ server = function(input, output, session) {
     if (is.null(movies)){
       print("No movie selected")
     }
-    else
+    else{
      eenfilm = NodesDF %>% 
         filter(id == as.numeric(movies)) %>% 
         select(label, description, runtime)
       
     print(eenfilm$description)
-    #print(stringr::str_replace_all(eenfilm$description, "\\.", "\n"))
+    }
   })
  
 }
