@@ -4,7 +4,9 @@ ui <- dashboardPage(
                    
                    sidebarMenu(
                      menuItem("Introduction", tabName = "Introduction", icon = icon("euro")),
-                     menuItem("Movies Network", tabName = "ArtistNetwork2", icon = icon("link"))
+                     menuItem("Movies Network", tabName = "ArtistNetwork2", icon = icon("link")),
+                     numericInput("distance", "Max distance", 0.8, min=0.01, max=1, step=0.02),
+                     checkboxInput("force","Force network")
                    ) 
   ),
   dashboardBody(
