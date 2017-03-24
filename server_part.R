@@ -84,23 +84,26 @@ server = function(input, output, session) {
       edges = RelatedMovies,  
       main = "network of movies close to each other"
     ) %>% 
-      visOptions(
-        highlightNearest = list(enabled = T, degree = 0, hover = FALSE),
-        nodesIdSelection = TRUE
-      ) %>%
-      visInteraction(
-        navigationButtons = TRUE
-      ) %>%
-     visEdges(smooth = FALSE) %>%
+    visOptions(
+      highlightNearest = list(enabled = T, degree = 0, hover = FALSE),
+      nodesIdSelection = TRUE
+    ) %>%
+    visInteraction(
+      navigationButtons = TRUE
+    ) %>%
+    visEdges(smooth = FALSE) %>%
+    visGroups(
+     groupname = "Adult", shape = "icon", 
+      icon = list(code = "f225", size = 75, color = "red")
+    ) %>% 
+    visGroups(
+      groupname = "Actie", color = "blue"
+    ) %>%
      visGroups(
-       groupname = "Adult", shape = "icon", 
-        icon = list(code = "f225", size = 75, color = "red")
-     ) %>% 
-     visGroups(
-       groupname = "Actie", color = "blue"
+       groupname = "Kinderfilm", color = "green"
      ) %>%
-     visLegend() %>%
-     addFontAwesome()
+    visLegend() %>%
+    addFontAwesome()
    
     if(!input$force)
     {
