@@ -47,7 +47,9 @@ server = function(input, output, session) {
       left_join (FILMS_ONLY) %>%
       rename(group = genre1, label = title) %>%
       mutate(
-        group = forcats::fct_lump(group, n=8),
+        group = as.character(forcats::fct_lump(group, n=8)),
+        group = ifelse(isAdult == "True", "Adult", group),
+        
         #value = 100 , #value * 10,
         title = paste0(
           "<h5>",
@@ -72,7 +74,6 @@ server = function(input, output, session) {
       edges = RelatedMovies,  
       main = "network of movies close to each other"
     ) %>% 
-      visLegend() %>%
       visOptions(
         highlightNearest = list(enabled = T, degree = 0, hover = FALSE),
         nodesIdSelection = TRUE
@@ -80,7 +81,16 @@ server = function(input, output, session) {
       visInteraction(
         navigationButtons = TRUE
       ) %>%
-     visEdges(smooth = FALSE)
+     visEdges(smooth = FALSE) %>%
+     visGroups(
+       groupname = "Adult", shape = "icon", 
+        icon = list(code = "f225", size = 75, color = "red")
+     ) %>% 
+     visGroups(
+       groupname = "Actie", color = "blue"
+     ) %>%
+     visLegend() %>%
+     addFontAwesome()
    
     if(!input$force)
     {
