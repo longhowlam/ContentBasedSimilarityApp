@@ -6,26 +6,10 @@ FILMS_ONLY = readRDS("data/FILMS_ONLY.RDs")
 
 server = function(input, output, session) {
   
+  ##### reactive functions ########################
   
-  ##### Introduction TAB #################################################################################
-  
-  output$intro <- renderUI({
-    list(
-     
-      h4("Videoland samenvattingen........  beschrijving....")
-      
-      
-      )
-    
-  })
-  
-  ##### Network tab ###########################################
-
-  output$MovieLinks <- renderVisNetwork({
-    
-    
-    
-    RelatedMovies = afstandenFrame %>% 
+  RelatedMovies <- reactive({
+    afstandenFrame %>% 
       filter(
         dist > 0, 
         dist <= input$distance,
@@ -43,6 +27,10 @@ server = function(input, output, session) {
         value = 100*(1-dist),
         title = round(dist,2))
     
+  })
+  
+  NodesDF <- reactive({
+    RelatedMovies = RelatedMovies()
     NodesDF = data.frame(id = unique(c(RelatedMovies$from, RelatedMovies$to))) %>%
       left_join (FILMS_ONLY) %>%
       rename(group = genre1, label = title) %>%
@@ -67,7 +55,29 @@ server = function(input, output, session) {
       )
     
     
-    NodesDF = NodesDF %>% arrange(label)
+    NodesDF %>% arrange(label)
+  })
+  
+  
+  ##### Introduction TAB #################################################################################
+  
+  output$intro <- renderUI({
+    list(
+     
+      h4("Videoland samenvattingen........  beschrijving....")
+      
+      
+      )
+    
+  })
+  
+  ##### Network tab ###########################################
+
+  output$MovieLinks <- renderVisNetwork({
+    
+    RelatedMovies = RelatedMovies()
+    
+    NodesDF = NodesDF()
     
    VN =  visNetwork(
       nodes = NodesDF, 
@@ -118,7 +128,7 @@ server = function(input, output, session) {
       print("No movie selected")
     }
     else{
-     eenfilm = NodesDF %>% 
+     eenfilm = NodesDF() %>% 
         filter(id == as.numeric(movies)) %>% 
         select(label, description, runtime)
       
