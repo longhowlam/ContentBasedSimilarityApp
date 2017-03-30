@@ -12,4 +12,4 @@ source("ui_part.R")
 
 source("server_part.R")
 
-shinyApp(ui, server)
+shinyApp(ui, server) 
