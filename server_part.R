@@ -64,7 +64,8 @@ server = function(input, output, session) {
   output$intro <- renderUI({
     list(
      
-      h4("Content based similarities of movies on Videoland, basedon their similarities")
+      h4("Content based similarities of movies on Videoland, based on their similarities"),
+      img("data/vl.png")
       
       
       )
