@@ -65,7 +65,7 @@ server = function(input, output, session) {
     list(
      
       h4("Content based similarities of movies on Videoland, based on their similarities"),
-      img("data/vl.png")
+      img(src="vl.png")
       
       
       )
