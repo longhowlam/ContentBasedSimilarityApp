@@ -7,7 +7,7 @@ library(plotly)
 library(visNetwork)
 library(shinydashboard)
 library(shiny)
-
+library(igraph)
 source("ui_part.R")
 
 source("server_part.R")

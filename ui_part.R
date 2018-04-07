@@ -6,7 +6,8 @@ ui <- dashboardPage(
                      menuItem("Introduction", tabName = "Introduction", icon = icon("euro")),
                      menuItem("Movies Network", tabName = "ArtistNetwork2", icon = icon("link")),
                      numericInput("distance", "Max distance", 0.8, min=0.01, max=1, step=0.02),
-                     checkboxInput("force","Force network")
+                     checkboxInput("force","Force network"),
+                     selectInput("networks", "layout", choices = grep("^layout\\.", ls("package:igraph"), value=TRUE))
                    ) 
   ),
   dashboardBody(
@@ -22,7 +23,7 @@ ui <- dashboardPage(
         tabName = "ArtistNetwork2",
         mainPanel( width = 12,
           fluidRow(
-            column(8, visNetworkOutput("MovieLinks", height = "700px")),
+            column(8, visNetworkOutput("MovieLinks", height = "700px", width = "1100px")),
             column(4, htmlOutput("MovieTable"))
           )
         )

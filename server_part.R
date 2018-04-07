@@ -110,7 +110,7 @@ server = function(input, output, session) {
     {
       VN = VN %>% 
       visIgraphLayout(
-        layout = "layout_with_drl", options=list(simmer.attraction=0),
+        layout = input$networks,
         physics=FALSE
       ) 
     }else{
